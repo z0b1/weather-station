@@ -9,7 +9,9 @@ data class WeatherResponse(
     @Json(name = "Temp") val temp: Double,
     @Json(name = "Hum") val hum: Double,
     @Json(name = "Speed") val speed: Double,
-    @Json(name = "Heading") val heading: Int
+    @Json(name = "Heading") val heading: Int,
+    @Json(name = "SoilTemp") val soilTemp: Double = 0.0,
+    @Json(name = "SurfTemp") val surfTemp: Double = 0.0
 )
 
 data class SatelliteRecording(

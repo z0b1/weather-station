@@ -99,17 +99,34 @@ class WeatherSDR:
         
         try:
             parts = packet.replace(';', '').split(',')
-            row = [now] + [p.split(':')[-1] for p in parts]
+            # packet: S:0.0,D:0,T:24.5,H:60,ST:22.1,SU:21.5;
+            data_map = {}
+            for p in parts:
+                if ':' in p:
+                    k, v = p.split(':')
+                    data_map[k] = v
+            
+            # row order: timestamp, speed, heading, temp, hum, soiltemp, surftemp
+            row = [
+                now, 
+                data_map.get('S', '0.0'), 
+                data_map.get('D', '0'), 
+                data_map.get('T', '0.0'), 
+                data_map.get('H', '0'),
+                data_map.get('ST', '0.0'),
+                data_map.get('SU', '0.0')
+            ]
             
             file_exists = os.path.isfile(CSV_FILE)
             with open(CSV_FILE, 'a', newline='') as f:
                 writer = csv.writer(f)
                 if not file_exists:
                     # add header if new file
-                    writer.writerow(["Timestamp", "Speed", "Heading", "Temp", "Hum"])
+                    writer.writerow(["Timestamp", "Speed", "Heading", "Temp", "Hum", "SoilTemp", "SurfTemp"])
                 writer.writerow(row)
             return row
-        except:
+        except Exception as e:
+            print(f"[!] Save error: {e}")
             return None
 
     def send_notification(self, message):
@@ -130,7 +147,7 @@ class WeatherSDR:
     def check_alerts(self, row):
         """Check if telemetry triggers any warnings"""
         try:
-            # Timestamp, Speed, Heading, Temp, Hum
+            # timestamp, speed, heading, temp, hum
             temp = float(row[3])
             if temp < FROST_THRESHOLD:
                 self.send_notification(f"Frost Warning! Temperature is {temp}°C")
@@ -158,7 +175,7 @@ class WeatherSDR:
                     if line:
                         try:
                             data = json.loads(line)
-                            # RadioHead decoder in rtl_433 outputs a "payload" field in hex
+                            # radiohead decoder in rtl_433 outputs a "payload" field in hex
                             if "payload" in data:
                                 raw_hex = data["payload"]
                                 payload = self.hex_to_string(raw_hex)

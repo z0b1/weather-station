@@ -11,8 +11,11 @@ composeBom = "2024.04.01"
 retrofit = "2.9.0"
 moshi = "1.15.0"
 coil = "2.6.0"
+material3 = "1.2.1"
+lifecycleViewmodelCompose = "2.8.4"
 
 [libraries]
+androidx-lifecycle-viewmodel-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycleViewmodelCompose" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }

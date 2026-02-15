@@ -1,0 +1,20 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.z0b1.weatherstation.app-mergeDebugResources-58:/values-hdpi-v4/values-hdpi-v4.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\Bozidar\\.gradle\\caches\\8.10.2\\transforms\\ef02d7e0ad64afac15113bfd06586920\\transformed\\appcompat-1.7.0\\res\\values-hdpi-v4\\values-hdpi-v4.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "6",
+                        "endColumns": "13",
+                        "endOffsets": "327"
+                    }
+                }
+            ]
+        }
+    ]
+}
