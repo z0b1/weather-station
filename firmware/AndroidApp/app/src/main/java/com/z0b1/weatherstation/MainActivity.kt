@@ -61,7 +61,7 @@ class WeatherViewModel : ViewModel() {
     private val _useMockData = MutableStateFlow(false)
     val useMockData: StateFlow<Boolean> = _useMockData
 
-    private val baseUrl = "http://YOUR_RESERVED_NAME.share.zrok.io" // Replace with your zrok URL
+    private val baseUrl = "https://your-name.share.zrok.io" // Replace with your zrok URL
     private val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
     private val retrofit = Retrofit.Builder()
         .baseUrl(baseUrl)
