@@ -179,6 +179,24 @@ class WeatherSDR:
             self.stop_receiver()
             GPIO.cleanup()
 
+    def save_data(self, packet):
+        """Appends weather data to CSV."""
+        now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        packet = packet.split(';')[0] + ';'
+        print(f"[{now}] Sensor Data: {packet}")
+                    
+        try:
+            parts = packet.replace(';', '').split(',')
+            row = [now] + [p.split(':')[-1] for p in parts]
+                        
+            file_exists = os.path.isfile(CSV_FILE)
+            with open(CSV_FILE, 'a', newline='') as f:
+                writer = csv.writer(f)
+                if not file_exists:
+                    writer.writerow(["Timestamp", "Speed", "Heading", "Temp", "Hum"])
+                writer.writerow(row)
+        except:
+            pass
 if __name__ == "__main__":
     receiver = WeatherSDR()
     receiver.run()

@@ -1,22 +1,22 @@
 /*
- * Solar Weather Station
- * Nano + FS1000A
+ * DIY Solar Weather Station - Hack Club Blueprint 2026
+ * Setup: Arduino Nano + RS485 Anemometers + DHT22
+ * Radio: FS1000A 433.92MHz Transmitter
+ * By: z0b1
  */
 
 #include "DHT.h"
 #include <ModbusMaster.h>
 #include <SoftwareSerial.h>
 
-// pins
-#define DHT_PIN 4
+#define DHT_PIN 4 // DHT22 data line
 #define DHT_TYPE DHT22
-#define RS485_RX 8
-#define RS485_TX 9
-#define RS485_CONTROL 2
-#define RF_TX_PIN 3
-#define STATUS_LED 10
+#define RS485_RX 8      // MAX485 Receive (RO)
+#define RS485_TX 9      // MAX485 Transmit (DI)
+#define RS485_CONTROL 2 // DE/RE Direction pin
+#define RF_TX_PIN 3     // FS1000A Data pin
+#define STATUS_LED 10   // Blinks during transmission
 
-// modbus ids
 #define SPEED_ID 1
 #define DIRECTION_ID 2
 

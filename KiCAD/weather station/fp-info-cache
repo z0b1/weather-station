@@ -1,4 +1,4 @@
-26287535062261919
+26289307758781867
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -59877,6 +59877,13 @@ One digit LED 7 segment SA39-11 SC39-11 SA39-12 SC39-12
 0
 10
 10
+ESP32
+ESP32_DEVKIT_V1
+Through hole straight pin header, 1x15, 2.54mm pitch, single row
+Through hole pin header THT 1x15 2.54mm single row
+0
+30
+15
 Ferrite_THT
 LairdTech_28C0236-0JW-10
 Ferrite, vertical, LairdTech 28C0236-0JW-10, https://assets.lairdtech.com/home/brandworld/files/28C0236-0JW-10.pdf, JW Miller core https://www.bourns.com/products/magnetic-products/j.w.-miller-through-hole-ferrite-beads-emi-filters
@@ -61172,13 +61179,6 @@ heatsink
 0
 0
 0
-ICS-43434
-MIC_ICS-43434
-
-
-0
-6
-6
 Inductor_SMD
 L_6.3x6.3_H3
 Choke, SMD, 6.3x6.3mm 3mm height
@@ -104873,3 +104873,10 @@ Varistor VF
 0
 2
 2
+doit-esp32-devkit-kicad-master
+ESP32-DOIT-DEVKIT
+
+
+0
+36
+36
