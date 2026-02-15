@@ -5,6 +5,7 @@ import os
 import datetime
 import time
 import signal
+import requests
 try:
     import RPi.GPIO as GPIO
 except ImportError:
@@ -26,6 +27,8 @@ from tracker import SatelliteTracker
 CSV_FILE = "weather_data.csv"
 SDR_FREQUENCY = "433.92M"
 ANTENNA_SWITCH_PIN = 17
+NTFY_TOPIC = "weatherstat"
+FROST_THRESHOLD = 2.0 # degrees Celsius
 
 # satellite setup
 SAT_CONFIG = {
@@ -47,10 +50,10 @@ class WeatherSDR:
         self.is_satellite_recording = False
         self.tracker = SatelliteTracker()
     
-    # setup pins
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setup(ANTENNA_SWITCH_PIN, GPIO.OUT)
-    self.set_antenna_mode('weather')
+        # setup pins
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(ANTENNA_SWITCH_PIN, GPIO.OUT)
+        self.set_antenna_mode('weather')
 
     def set_antenna_mode(self, mode):
         """switch relay mode"""
@@ -97,12 +100,11 @@ class WeatherSDR:
         os.makedirs(output_dir, exist_ok=True)
 
         cmd = [
-            "satdump", config["pipeline"], "iqn",
+            "satdump", "live", config["pipeline"], output_dir,
             "--source", "rtl_sdr",
             "--samplerate", "1.024e6",
-            "--frequency", config["freq"],
+            "--frequency", str(config["freq"]).replace('M', '000000'),
             "--gain", "45",
-            "--path", output_dir,
             "--timeout", "60"
         ]
 
@@ -140,7 +142,33 @@ class WeatherSDR:
                     # add header if new file
                     writer.writerow(["Timestamp", "Speed", "Heading", "Temp", "Hum"])
                 writer.writerow(row)
+            return row
         except:
+            return None
+
+    def send_notification(self, message):
+        """Send push notification via ntfy.sh"""
+        print(f"[*] Sending notification: {message}")
+        try:
+            requests.post(f"https://ntfy.sh/{NTFY_TOPIC}",
+                          data=message,
+                          headers={
+                              "Title": "Weather Station Alert",
+                              "Priority": "high",
+                              "Tags": "warning,snowflake"
+                          },
+                          timeout=5)
+        except Exception as e:
+            print(f"[!] Notification failed: {e}")
+
+    def check_alerts(self, row):
+        """Check if telemetry triggers any warnings"""
+        try:
+            # Timestamp, Speed, Heading, Temp, Hum
+            temp = float(row[3])
+            if temp < FROST_THRESHOLD:
+                self.send_notification(f"Frost Warning! Temperature is {temp}°C")
+        except (ValueError, IndexError):
             pass
 
     def run(self):
@@ -169,7 +197,9 @@ class WeatherSDR:
                                 raw_hex = data["payload"]
                                 payload = self.hex_to_string(raw_hex)
                                 if payload and "S:" in payload:
-                                    self.save_data(payload)
+                                    row = self.save_data(payload)
+                                    if row:
+                                        self.check_alerts(row)
                         except json.JSONDecodeError:
                             continue
 
@@ -179,24 +209,6 @@ class WeatherSDR:
             self.stop_receiver()
             GPIO.cleanup()
 
-    def save_data(self, packet):
-        """Appends weather data to CSV."""
-        now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        packet = packet.split(';')[0] + ';'
-        print(f"[{now}] Sensor Data: {packet}")
-                    
-        try:
-            parts = packet.replace(';', '').split(',')
-            row = [now] + [p.split(':')[-1] for p in parts]
-                        
-            file_exists = os.path.isfile(CSV_FILE)
-            with open(CSV_FILE, 'a', newline='') as f:
-                writer = csv.writer(f)
-                if not file_exists:
-                    writer.writerow(["Timestamp", "Speed", "Heading", "Temp", "Hum"])
-                writer.writerow(row)
-        except:
-            pass
 if __name__ == "__main__":
     receiver = WeatherSDR()
     receiver.run()
