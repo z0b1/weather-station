@@ -6,27 +6,12 @@ import datetime
 import time
 import signal
 import requests
-try:
-    import RPi.GPIO as GPIO
-except ImportError:
-    # mock for pc
-    class GPIO:
-        BCM = BOARD = OUT = HIGH = LOW = 0
-        @staticmethod
-        def setmode(a): pass
-        @staticmethod
-        def setup(a, b): pass
-        @staticmethod
-        def output(a, b): pass
-        @staticmethod
-        def cleanup(): pass
 
 from tracker import SatelliteTracker
 
 # config
 CSV_FILE = "weather_data.csv"
 SDR_FREQUENCY = "433.92M"
-ANTENNA_SWITCH_PIN = 17
 NTFY_TOPIC = "weatherstat"
 FROST_THRESHOLD = 2.0 # degrees Celsius
 
@@ -49,21 +34,6 @@ class WeatherSDR:
         self.process = None
         self.is_satellite_recording = False
         self.tracker = SatelliteTracker()
-    
-        # setup pins
-        GPIO.setmode(GPIO.BCM)
-        GPIO.setup(ANTENNA_SWITCH_PIN, GPIO.OUT)
-        self.set_antenna_mode('weather')
-
-    def set_antenna_mode(self, mode):
-        """switch relay mode"""
-        if mode == 'sat':
-            print("[*] switching to sat")
-            GPIO.output(ANTENNA_SWITCH_PIN, GPIO.HIGH)
-        else:
-            print("[*] switching to weather")
-            GPIO.output(ANTENNA_SWITCH_PIN, GPIO.LOW)
-        time.sleep(1)
         
     def start_receiver(self):
         print(f"[*] starting receiver on {SDR_FREQUENCY}")
@@ -83,7 +53,6 @@ class WeatherSDR:
 
     def record_satellite(self, sat_info):
         """record satellite pass"""
-        self.set_antenna_mode('sat')
         
         sat_name = sat_info['name'].lower()
         config = None
@@ -114,9 +83,6 @@ class WeatherSDR:
             print(f"[+] done. saved to {output_dir}")
         except Exception as e:
             print(f"[!] error: {e}")
-        finally:
-            # resume weather mode
-            self.set_antenna_mode('weather')
 
     def hex_to_string(self, hex_str):
         try:
@@ -207,7 +173,6 @@ class WeatherSDR:
         except KeyboardInterrupt:
             # cleanup on exit
             self.stop_receiver()
-            GPIO.cleanup()
 
 if __name__ == "__main__":
     receiver = WeatherSDR()

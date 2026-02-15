@@ -1849,7 +1849,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Raspberry_Pi_2_3"
+		(property "Value" "Raspberry_Pi4"
 			(at 59.2933 95.25 0)
 			(effects
 				(font
