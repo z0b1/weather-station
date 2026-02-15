@@ -7,6 +7,8 @@
 
 #include "DHT.h"
 #include <ModbusMaster.h>
+#include <RH_ASK.h>
+#include <SPI.h>
 #include <SoftwareSerial.h>
 
 #define DHT_PIN 4 // DHT22 data line
@@ -23,6 +25,8 @@
 DHT dht(DHT_PIN, DHT_TYPE);
 SoftwareSerial rs485Serial(RS485_RX, RS485_TX);
 ModbusMaster modbus;
+RH_ASK driver(2000, 0, RF_TX_PIN,
+              0); // 2000 bps, RX on 0 (unused), TX on RF_TX_PIN
 
 float windSpeed = 0.0;
 int windHeading = 0;
@@ -40,8 +44,11 @@ void setup() {
   rs485Serial.begin(9600);
   dht.begin();
 
+  if (!driver.init()) {
+    Serial.println("RadioHead init failed");
+  }
+
   pinMode(RS485_CONTROL, OUTPUT);
-  pinMode(RF_TX_PIN, OUTPUT);
   pinMode(STATUS_LED, OUTPUT);
 
   toggleRS485(false);
@@ -79,20 +86,9 @@ void sendRadioPacket() {
   String payload = "S:" + String(windSpeed, 1) + ",D:" + String(windHeading) +
                    ",T:" + String(airTemp, 1) + ",H:" + String(airHum, 0) + ";";
 
-  // bit-bang ook
-  for (int i = 0; i < payload.length(); i++) {
-    char c = payload[i];
-    for (int bit = 0; bit < 8; bit++) {
-      digitalWrite(RF_TX_PIN, HIGH);
-      if (bitRead(c, bit)) {
-        delayMicroseconds(600); // 1
-      } else {
-        delayMicroseconds(250); // 0
-      }
-      digitalWrite(RF_TX_PIN, LOW);
-      delayMicroseconds(400); // gap
-    }
-  }
+  const char *msg = payload.c_str();
+  driver.send((uint8_t *)msg, strlen(msg));
+  driver.waitPacketSent();
 
   digitalWrite(STATUS_LED, LOW);
 }

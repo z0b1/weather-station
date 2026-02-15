@@ -37,8 +37,7 @@ SAT_CONFIG = {
 DECODER_COMMAND = [
     "rtl_433",
     "-f", SDR_FREQUENCY,
-    "-M", "json",
-    "-X", "n=WeatherStation,m=OOK_PWM,s=250,l=600,g=400,r=2000,bits>=40",
+    "-R", "110", # RadioHead ASK decoder
     "-F", "json"
 ]
 
@@ -165,8 +164,9 @@ class WeatherSDR:
                     if line:
                         try:
                             data = json.loads(line)
-                            if "codes" in data:
-                                raw_hex = data["codes"][0]
+                            # RadioHead decoder in rtl_433 outputs a "payload" field in hex
+                            if "payload" in data:
+                                raw_hex = data["payload"]
                                 payload = self.hex_to_string(raw_hex)
                                 if payload and "S:" in payload:
                                     self.save_data(payload)
