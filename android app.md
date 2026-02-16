@@ -36,5 +36,19 @@
 3. Copy the URL provided by zrok and paste it into `MainActivity.kt`.
 
 
+## Customizing Icons
+
+### Dashboard Icons
+The icons for stats (Temperature, Humidity, etc.) are implemented using **Material Icons** in `MainActivity.kt`. You can change them by modifying the `icon` parameter in the `StatCard` calls.
+
+### Launcher Icon (App Logo)
+To change the app's main icon:
+1.  Open the project in **Android Studio**.
+2.  Right-click the **app** folder -> **New > Image Asset**.
+3.  Select **Launcher Icons (Adaptive and Legacy)**.
+4.  Pick your image/SVG in the **Path** field.
+5.  Scale it to fit the safe zone.
+6.  Finish the wizard; Android Studio handles all sizes for you.
+
 ---
 ## NAPRED ZVEZDO

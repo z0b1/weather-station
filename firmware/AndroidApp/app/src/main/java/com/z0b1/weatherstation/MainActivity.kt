@@ -48,6 +48,11 @@ import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.Thermostat
+import androidx.compose.material.icons.filled.WaterDrop
+import androidx.compose.material.icons.filled.Grass
+import androidx.compose.material.icons.filled.WbSunny
+import androidx.compose.ui.graphics.vector.ImageVector
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
@@ -397,15 +402,15 @@ fun GlassCard(
 fun LiveView(weather: WeatherResponse?, satellites: List<SatelliteRecording>, baseUrl: String) {
     Column {
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-            StatCard("Temperature", "${weather?.temp ?: "--"}°", Modifier.weight(1f), Color(0xFFF87171))
-            StatCard("Humidity", "${weather?.hum ?: "--"}%", Modifier.weight(1f), Color(0xFF60A5FA))
+            StatCard("Temperature", "${weather?.temp ?: "--"}°", Icons.Default.Thermostat, Modifier.weight(1f), Color(0xFFF87171))
+            StatCard("Humidity", "${weather?.hum ?: "--"}%", Icons.Default.WaterDrop, Modifier.weight(1f), Color(0xFF60A5FA))
         }
 
         Spacer(Modifier.height(16.dp))
 
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-            StatCard("Soil (-10cm)", "${weather?.soilTemp ?: "--"}°", Modifier.weight(1f), Color(0xFFB45309))
-            StatCard("Surface", "${weather?.surfTemp ?: "--"}°", Modifier.weight(1f), Color(0xFF10B981))
+            StatCard("Soil (-10cm)", "${weather?.soilTemp ?: "--"}°", Icons.Default.Grass, Modifier.weight(1f), Color(0xFFB45309))
+            StatCard("Surface", "${weather?.surfTemp ?: "--"}°", Icons.Default.WbSunny, Modifier.weight(1f), Color(0xFF10B981))
         }
 
         Spacer(Modifier.height(16.dp))
@@ -738,7 +743,7 @@ fun WindVaneHistoryGraph(headings: List<Int>, modifier: Modifier) {
 }
 
 @Composable
-fun StatCard(label: String, value: String, modifier: Modifier, tint: Color) {
+fun StatCard(label: String, value: String, icon: ImageVector, modifier: Modifier, tint: Color) {
     GlassCard(modifier = modifier) {
         Box(
             modifier = Modifier
@@ -747,7 +752,12 @@ fun StatCard(label: String, value: String, modifier: Modifier, tint: Color) {
                 .background(tint.copy(alpha = 0.15f)),
             contentAlignment = Alignment.Center
         ) {
-            Box(Modifier.size(8.dp).clip(CircleShape).background(tint))
+            Icon(
+                imageVector = icon,
+                contentDescription = label,
+                tint = tint,
+                modifier = Modifier.size(18.dp)
+            )
         }
         Spacer(Modifier.height(16.dp))
         Text(label, color = Color.White.copy(alpha = 0.6f), fontSize = 12.sp, fontWeight = FontWeight.Bold)
