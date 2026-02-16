@@ -11,56 +11,58 @@
 11    <uses-permission android:name="android.permission.INTERNET" />
 11-->C:\Users\Bozidar\Desktop\BLUEPRINT\firmware\AndroidApp\app\src\main\AndroidManifest.xml:3:5-67
 11-->C:\Users\Bozidar\Desktop\BLUEPRINT\firmware\AndroidApp\app\src\main\AndroidManifest.xml:3:22-64
-12
-13    <permission
-13-->[androidx.core:core:1.13.1] C:\Users\Bozidar\.gradle\caches\8.10.2\transforms\d0adcac1f08d666552eaa0d6eec5d5e2\transformed\core-1.13.1\AndroidManifest.xml:22:5-24:47
-14        android:name="com.z0b1.weatherstation.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
-14-->[androidx.core:core:1.13.1] C:\Users\Bozidar\.gradle\caches\8.10.2\transforms\d0adcac1f08d666552eaa0d6eec5d5e2\transformed\core-1.13.1\AndroidManifest.xml:23:9-81
-15        android:protectionLevel="signature" />
-15-->[androidx.core:core:1.13.1] C:\Users\Bozidar\.gradle\caches\8.10.2\transforms\d0adcac1f08d666552eaa0d6eec5d5e2\transformed\core-1.13.1\AndroidManifest.xml:24:9-44
-16
-17    <uses-permission android:name="com.z0b1.weatherstation.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
-17-->[androidx.core:core:1.13.1] C:\Users\Bozidar\.gradle\caches\8.10.2\transforms\d0adcac1f08d666552eaa0d6eec5d5e2\transformed\core-1.13.1\AndroidManifest.xml:26:5-97
-17-->[androidx.core:core:1.13.1] C:\Users\Bozidar\.gradle\caches\8.10.2\transforms\d0adcac1f08d666552eaa0d6eec5d5e2\transformed\core-1.13.1\AndroidManifest.xml:26:22-94
-18
-19    <application
-19-->C:\Users\Bozidar\Desktop\BLUEPRINT\firmware\AndroidApp\app\src\main\AndroidManifest.xml:4:5-21:19
-20        android:allowBackup="true"
-20-->C:\Users\Bozidar\Desktop\BLUEPRINT\firmware\AndroidApp\app\src\main\AndroidManifest.xml:5:9-35
-21        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-21-->[androidx.core:core:1.13.1] C:\Users\Bozidar\.gradle\caches\8.10.2\transforms\d0adcac1f08d666552eaa0d6eec5d5e2\transformed\core-1.13.1\AndroidManifest.xml:28:18-86
-22        android:debuggable="true"
-23        android:extractNativeLibs="false"
-24        android:icon="@mipmap/ic_launcher"
-24-->C:\Users\Bozidar\Desktop\BLUEPRINT\firmware\AndroidApp\app\src\main\AndroidManifest.xml:6:9-43
-25        android:label="@string/app_name"
-25-->C:\Users\Bozidar\Desktop\BLUEPRINT\firmware\AndroidApp\app\src\main\AndroidManifest.xml:7:9-41
-26        android:roundIcon="@mipmap/ic_launcher_round"
-26-->C:\Users\Bozidar\Desktop\BLUEPRINT\firmware\AndroidApp\app\src\main\AndroidManifest.xml:8:9-54
-27        android:supportsRtl="true"
-27-->C:\Users\Bozidar\Desktop\BLUEPRINT\firmware\AndroidApp\app\src\main\AndroidManifest.xml:9:9-35
-28        android:testOnly="true"
+12    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+12-->C:\Users\Bozidar\Desktop\BLUEPRINT\firmware\AndroidApp\app\src\main\AndroidManifest.xml:4:5-77
+12-->C:\Users\Bozidar\Desktop\BLUEPRINT\firmware\AndroidApp\app\src\main\AndroidManifest.xml:4:22-74
+13
+14    <permission
+14-->[androidx.core:core:1.13.1] C:\Users\Bozidar\.gradle\caches\8.10.2\transforms\d0adcac1f08d666552eaa0d6eec5d5e2\transformed\core-1.13.1\AndroidManifest.xml:22:5-24:47
+15        android:name="com.z0b1.weatherstation.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+15-->[androidx.core:core:1.13.1] C:\Users\Bozidar\.gradle\caches\8.10.2\transforms\d0adcac1f08d666552eaa0d6eec5d5e2\transformed\core-1.13.1\AndroidManifest.xml:23:9-81
+16        android:protectionLevel="signature" />
+16-->[androidx.core:core:1.13.1] C:\Users\Bozidar\.gradle\caches\8.10.2\transforms\d0adcac1f08d666552eaa0d6eec5d5e2\transformed\core-1.13.1\AndroidManifest.xml:24:9-44
+17
+18    <uses-permission android:name="com.z0b1.weatherstation.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+18-->[androidx.core:core:1.13.1] C:\Users\Bozidar\.gradle\caches\8.10.2\transforms\d0adcac1f08d666552eaa0d6eec5d5e2\transformed\core-1.13.1\AndroidManifest.xml:26:5-97
+18-->[androidx.core:core:1.13.1] C:\Users\Bozidar\.gradle\caches\8.10.2\transforms\d0adcac1f08d666552eaa0d6eec5d5e2\transformed\core-1.13.1\AndroidManifest.xml:26:22-94
+19
+20    <application
+20-->C:\Users\Bozidar\Desktop\BLUEPRINT\firmware\AndroidApp\app\src\main\AndroidManifest.xml:5:5-22:19
+21        android:allowBackup="true"
+21-->C:\Users\Bozidar\Desktop\BLUEPRINT\firmware\AndroidApp\app\src\main\AndroidManifest.xml:6:9-35
+22        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+22-->[androidx.core:core:1.13.1] C:\Users\Bozidar\.gradle\caches\8.10.2\transforms\d0adcac1f08d666552eaa0d6eec5d5e2\transformed\core-1.13.1\AndroidManifest.xml:28:18-86
+23        android:debuggable="true"
+24        android:extractNativeLibs="false"
+25        android:icon="@mipmap/ic_launcher"
+25-->C:\Users\Bozidar\Desktop\BLUEPRINT\firmware\AndroidApp\app\src\main\AndroidManifest.xml:7:9-43
+26        android:label="@string/app_name"
+26-->C:\Users\Bozidar\Desktop\BLUEPRINT\firmware\AndroidApp\app\src\main\AndroidManifest.xml:8:9-41
+27        android:roundIcon="@mipmap/ic_launcher_round"
+27-->C:\Users\Bozidar\Desktop\BLUEPRINT\firmware\AndroidApp\app\src\main\AndroidManifest.xml:9:9-54
+28        android:supportsRtl="true"
+28-->C:\Users\Bozidar\Desktop\BLUEPRINT\firmware\AndroidApp\app\src\main\AndroidManifest.xml:10:9-35
 29        android:theme="@style/Theme.WeatherStation"
-29-->C:\Users\Bozidar\Desktop\BLUEPRINT\firmware\AndroidApp\app\src\main\AndroidManifest.xml:10:9-52
+29-->C:\Users\Bozidar\Desktop\BLUEPRINT\firmware\AndroidApp\app\src\main\AndroidManifest.xml:11:9-52
 30        android:usesCleartextTraffic="true" >
-30-->C:\Users\Bozidar\Desktop\BLUEPRINT\firmware\AndroidApp\app\src\main\AndroidManifest.xml:11:9-44
+30-->C:\Users\Bozidar\Desktop\BLUEPRINT\firmware\AndroidApp\app\src\main\AndroidManifest.xml:12:9-44
 31        <activity
-31-->C:\Users\Bozidar\Desktop\BLUEPRINT\firmware\AndroidApp\app\src\main\AndroidManifest.xml:12:9-20:20
+31-->C:\Users\Bozidar\Desktop\BLUEPRINT\firmware\AndroidApp\app\src\main\AndroidManifest.xml:13:9-21:20
 32            android:name="com.z0b1.weatherstation.MainActivity"
-32-->C:\Users\Bozidar\Desktop\BLUEPRINT\firmware\AndroidApp\app\src\main\AndroidManifest.xml:13:13-41
+32-->C:\Users\Bozidar\Desktop\BLUEPRINT\firmware\AndroidApp\app\src\main\AndroidManifest.xml:14:13-41
 33            android:exported="true"
-33-->C:\Users\Bozidar\Desktop\BLUEPRINT\firmware\AndroidApp\app\src\main\AndroidManifest.xml:14:13-36
+33-->C:\Users\Bozidar\Desktop\BLUEPRINT\firmware\AndroidApp\app\src\main\AndroidManifest.xml:15:13-36
 34            android:theme="@style/Theme.WeatherStation" >
-34-->C:\Users\Bozidar\Desktop\BLUEPRINT\firmware\AndroidApp\app\src\main\AndroidManifest.xml:15:13-56
+34-->C:\Users\Bozidar\Desktop\BLUEPRINT\firmware\AndroidApp\app\src\main\AndroidManifest.xml:16:13-56
 35            <intent-filter>
-35-->C:\Users\Bozidar\Desktop\BLUEPRINT\firmware\AndroidApp\app\src\main\AndroidManifest.xml:16:13-19:29
+35-->C:\Users\Bozidar\Desktop\BLUEPRINT\firmware\AndroidApp\app\src\main\AndroidManifest.xml:17:13-20:29
 36                <action android:name="android.intent.action.MAIN" />
-36-->C:\Users\Bozidar\Desktop\BLUEPRINT\firmware\AndroidApp\app\src\main\AndroidManifest.xml:17:17-69
-36-->C:\Users\Bozidar\Desktop\BLUEPRINT\firmware\AndroidApp\app\src\main\AndroidManifest.xml:17:25-66
+36-->C:\Users\Bozidar\Desktop\BLUEPRINT\firmware\AndroidApp\app\src\main\AndroidManifest.xml:18:17-69
+36-->C:\Users\Bozidar\Desktop\BLUEPRINT\firmware\AndroidApp\app\src\main\AndroidManifest.xml:18:25-66
 37
 38                <category android:name="android.intent.category.LAUNCHER" />
-38-->C:\Users\Bozidar\Desktop\BLUEPRINT\firmware\AndroidApp\app\src\main\AndroidManifest.xml:18:17-77
-38-->C:\Users\Bozidar\Desktop\BLUEPRINT\firmware\AndroidApp\app\src\main\AndroidManifest.xml:18:27-74
+38-->C:\Users\Bozidar\Desktop\BLUEPRINT\firmware\AndroidApp\app\src\main\AndroidManifest.xml:19:17-77
+38-->C:\Users\Bozidar\Desktop\BLUEPRINT\firmware\AndroidApp\app\src\main\AndroidManifest.xml:19:27-74
 39            </intent-filter>
 40        </activity>
 41        <activity

@@ -56,6 +56,16 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+import android.Manifest
+import android.content.pm.PackageManager
+import androidx.core.content.ContextCompat
+import android.os.Build
+import android.app.Activity
 
 class WeatherViewModel : ViewModel() {
     private val _useMockData = MutableStateFlow(false)
@@ -97,27 +107,70 @@ class WeatherViewModel : ViewModel() {
     private val _showHistory = MutableStateFlow(false)
     val showHistory: StateFlow<Boolean> = _showHistory
 
+    private var lastAlertTemp: Double? = null
+    private val ALERT_THRESHOLD = 1.0
+    private val RESET_THRESHOLD = 2.0 // Avoid flapping
+
     init {
         startPolling()
     }
 
+    fun checkFrostAlert(context: Context, currentTemp: Double) {
+        if (currentTemp < ALERT_THRESHOLD) {
+            if (lastAlertTemp == null || lastAlertTemp!! >= ALERT_THRESHOLD) {
+                showNotification(context, "Frost Alert!", "Temperature has dropped to ${currentTemp}°C. Protecting watering systems recommended.")
+            }
+            lastAlertTemp = currentTemp
+        } else if (currentTemp > RESET_THRESHOLD) {
+            lastAlertTemp = null // Reset for next event
+        }
+    }
+
+    private fun showNotification(context: Context, title: String, content: String) {
+        val channelId = "frost_alerts"
+        val notificationId = 1001
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                return
+            }
+        }
+
+        val builder = NotificationCompat.Builder(context, channelId)
+            .setSmallIcon(android.R.drawable.stat_sys_warning)
+            .setContentTitle(title)
+            .setContentText(content)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setAutoCancel(true)
+
+        with(NotificationManagerCompat.from(context)) {
+            notify(notificationId, builder.build())
+        }
+    }
+
     private fun startPolling() {
+        // This is a bit of a hack since ViewModel doesn't have Context usually,
+        // but for this simple project we can pass it or use a callback.
+        // I'll use the check logic inside the dashboard directly to get context easily.
+    }
+
+    fun pollData(context: Context) {
         viewModelScope.launch {
-            while (true) {
-                if (!_useMockData.value) {
-                    try {
-                        _weather.value = service.getLatestWeather()
-                        _satellites.value = service.getSatellites()
-                        if (_showHistory.value) {
-                            _history.value = service.getWeatherHistory()
-                        }
-                    } catch (e: Exception) {
-                        e.printStackTrace()
+            if (!_useMockData.value) {
+                try {
+                    val result = service.getLatestWeather()
+                    _weather.value = result
+                    checkFrostAlert(context, result.temp)
+                    _satellites.value = service.getSatellites()
+                    if (_showHistory.value) {
+                        _history.value = service.getWeatherHistory()
                     }
-                } else {
-                    generateMockData()
+                } catch (e: Exception) {
+                    e.printStackTrace()
                 }
-                delay(10000)
+            } else {
+                generateMockData()
+                _weather.value?.let { checkFrostAlert(context, it.temp) }
             }
         }
     }
@@ -174,12 +227,35 @@ class WeatherViewModel : ViewModel() {
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        createNotificationChannel()
+        
+        // Request notification permission for Android 13+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(arrayOf(Manifest.permission.POST_NOTIFICATIONS), 1)
+            }
+        }
+
         setContent {
             MaterialTheme(colorScheme = darkColorScheme()) {
                 Surface(modifier = Modifier.fillMaxSize(), color = Color(0xFF0D0F14)) {
                     WeatherDashboard()
                 }
             }
+        }
+    }
+
+    private fun createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = "Frost Alerts"
+            val descriptionText = "Notifications for freezing temperatures"
+            val importance = NotificationManager.IMPORTANCE_HIGH
+            val channel = NotificationChannel("frost_alerts", name, importance).apply {
+                description = descriptionText
+            }
+            val notificationManager: NotificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
         }
     }
 }
@@ -193,6 +269,14 @@ fun WeatherDashboard(viewModel: WeatherViewModel = viewModel()) {
     val useMockData by viewModel.useMockData.collectAsState()
     val selectedMonth by viewModel.selectedMonth.collectAsState()
     var expanded by remember { mutableStateOf(false) }
+
+    val context = androidx.compose.ui.platform.LocalContext.current
+    LaunchedEffect(Unit) {
+        while(true) {
+            viewModel.pollData(context)
+            delay(10000)
+        }
+    }
 
     Surface(
         modifier = Modifier.fillMaxSize(),
