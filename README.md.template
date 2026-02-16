@@ -1,0 +1,5 @@
+# BLUEPRINT - WakaTime Stats
+
+{{ wakatimeDoubleCategoryBar "Languages:" wakatimeData.Languages "Projects:" wakatimeData.Projects 5 }}
+
+<!-- This file is a template. The waka-readme-stats action will use this to generate README.md -->
