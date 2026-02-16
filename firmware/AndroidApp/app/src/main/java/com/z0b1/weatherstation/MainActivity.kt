@@ -476,11 +476,20 @@ fun HistoryView(history: List<WeatherResponse>, selectedMonth: Int, onMonthSelec
         }
         item {
             GraphCard(
-                title = "Ground & Surface Temperature",
-                data = history.map { it.soilTemp.toFloat() }, // Soil as primary
+                title = "Ground Temperature (-10cm)",
+                data = history.map { it.soilTemp.toFloat() },
                 labels = history.map { try { java.time.LocalDate.parse(it.timestamp).dayOfMonth.toString() } catch(e:Exception) { "0" } },
                 unit = "°C",
                 color = Color(0xFFB45309)
+            )
+        }
+        item {
+            GraphCard(
+                title = "Surface Temperature",
+                data = history.map { it.surfTemp.toFloat() },
+                labels = history.map { try { java.time.LocalDate.parse(it.timestamp).dayOfMonth.toString() } catch(e:Exception) { "0" } },
+                unit = "°C",
+                color = Color(0xFF10B981)
             )
         }
         item {
