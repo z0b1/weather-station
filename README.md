@@ -22,11 +22,11 @@ Using an Arduino Nano I read the data from the sensors and send it with my UHF t
 | J1, J2 | 1 | RS485 ANEMOMETER | € 26.53 | [Link](https://www.aliexpress.com/item/1005007059408469.html?spm=a2g0o.productlist.main.2.4a033928CMF5XY&algo_pvid=716ca457-5aab-4316-b2cb-04b983bb9b31&algo_exp_id=716ca457-5aab-4316-b2cb-04b983bb9b31-1&pdp_ext_f=%7B%22order%22%3A%2222%22%2C%22eval%22%3A%221%22%25) | RS485 type | ~ |
 | J4 | 1 | RS485 WIND DIRECTION | € 23.82 | [Link](https://www.aliexpress.com/item/1005007059408469.html?spm=a2g0o.productlist.main.2.4a033928CMF5XY&algo_pvid=716ca457-5aab-4316-b2cb-04b983bb9b31&algo_exp_id=716ca457-5aab-4316-b2cb-04b983bb9b31-1&pdp_ext_f=%7B%22order%22%3A%2222%22%2C%22eval%22%3A%221%22%25) | RS485 type | ~ |
 | U4 | 1 | SDLA12TA | € 1.75 | [Link](https://www.aliexpress.com/item/1005006641063540.html?spm=a2g0o.productlist.main.2.27095885CkBPLU&algo_pvid=e4be5066-8354-41d3-922b-3ee448c878b3&algo_exp_id=e4be5066-8354-41d3-922b-3ee448c878b3-1&pdp_ext_f=%7B%22order%22%3A%2225%22%2C%22eval%22%3A%221%22%25) | | [Link](https://easyeda.com/component/451d05428ff8431fb9c594829dfd0fbf) |
-| R1 | 1 | 2k1? | € 0.00 | [Link](https://www.aliexpress.com/item/1005010688244614.html?spm=a2g0o.productlist.main.2.7d8fG8tEG8tEk2&algo_pvid=e197ad8d-f3f6-47ee-a63e-3a9a69ddded3&algo_exp_id=e197ad8d-f3f6-47ee-a63e-3a9a69ddded3-1&pdp_ext_f=%7B%22order%22%3A%225%22%2C%22eval%22%3A%221%22%252) | I already have | ~ |
-| R2 | 1 | 220? | - | | | ~ |
-| R3, R6 | 2 | 10K? | - | | | ~ |
-| R5 | 1 | 47K? | - | | | ~ |
-| R7 | 1 | 120? | - | | | ~ |
+| R1 | 1 | 2k1 | € 0.00 | [Link](https://www.aliexpress.com/item/1005010688244614.html?spm=a2g0o.productlist.main.2.7d8fG8tEG8tEk2&algo_pvid=e197ad8d-f3f6-47ee-a63e-3a9a69ddded3&algo_exp_id=e197ad8d-f3f6-47ee-a63e-3a9a69ddded3-1&pdp_ext_f=%7B%22order%22%3A%225%22%2C%22eval%22%3A%221%22%252) | I already have | ~ |
+| R2 | 1 | 220| - | | | ~ |
+| R3, R6 | 2 | 10K | - | | | ~ |
+| R5 | 1 | 47K | - | | | ~ |
+| R7 | 1 | 120 | - | | | ~ |
 | SC1 | 1 | Solar cell | € 48.76 | [Link](https://www.xunzel.com/store/en/producto/solarpower-15w-12v/) | 15W 12V | ~ |
 | U1 | 1 | DC-DC Buck Converter (LM2596) | € 2.00 | [Link](https://www.aliexpress.com/item/1005011900000000.html) | Voltage Regulator | ~ |
 | U2 | 1 | MAX485E | € 4.39 | [Link](https://www.aliexpress.com/item/1005008248138246.html?spm=a2g0o.productlist.main.3.50414ee34ANwSC&algo_pvid=91f3ea3b-89b0-416b-b821-3a5b0b836404&algo_exp_id=91f3ea3b-89b0-416b-b821-3a5b0b836404-2&pdp_ext_f=%7B%22order%22%3A%224614%22%2C%22spu_best_type%22%3A%22order%22%2C%22eval%22%3A%221%22%2C%22orig_sl_item_id%22%3A%221005008248138246%22%2C%22orig_item_id%22%3A%221005008332469260%22%2C%22fromPage%22%3A%22search%22%7D&pdp_npi=6%40dis%21EUR%218.78%214.39%21%21%2170.18%2135.09%21%40211b615317711213649861629e601f%2112000044371383487%21sea%21SRB%210%21ABX%211%210%21n_tag%3A-29910%3Bd%3A3d40ec8a%3Bm03_new_user%3A-29895&curPageLogUid=iT1tcIOUDtud&utparam-url=scene%3Asearch%7Cquery_from%3A%7Cx_object_id%3A1005008248138246%7C_p_origin_prod%3A1005008332469260) | RS485 Translate | [Link](https://datasheets.maximintegrated.com/en/ds/MAX1487E-MAX491E.pdf) |
@@ -36,12 +36,14 @@ Using an Arduino Nano I read the data from the sensors and send it with my UHF t
 | U6 | 1 | Raspberry Pi 4 Model B (4GB) | € 64.00 | [Link](https://www.aliexpress.com/item/1005012300000000.html) | Receiver Host | ~ |
 | U7 | 1 | RTL-SDR Blog V4 | € 30.78 | [Link](https://www.rtl-sdr.com/buy-rtl-sdr-dvb-t-dongles/) | Official Receiver | ~ |
 | AC1 | 1 | Micro-Type Diplexer Duplex Filter | € 13.66 | [Link](https://www.aliexpress.com/item/1005005862057777.html?spm=a2g0o.productlist.main.4.54332Rrn2RrnbS&algo_pvid=6b1cd6b7-e759-4554-baba-a451a18d1cca&algo_exp_id=6b1cd6b7-e759-4554-baba-a451a18d1cca-4&pdp_ext_f=%7B%22order%22%3A%2272%22%2C%22eval%22%3A%221%22%25) | 10W V/U 2m 70cm | ~ |
-| PCB | 1 | JLCPCB PCB Manufacturing | € 19.61 | [Link](https://jlcpcb.com/) | $20.75 | ~ |
+| PCB | 1 | JLCPCB PCB Manufacturing | € 19.61 | [Link]| $20.75 | ~ |
 
 **Grand Total**: € 273.63 ($ 290.05)  
 **Grand Total (Including shipping/VAT)**: € 343.01 ($ 363.59)
 
+**NOTE: IN THE GRAND TOTAL IS INCLUDED THE PRICE OF JLCPCB PCB MANUFACTURING**
+
 # What might be added 
 Using local LLM's to recognize cloud and other patterns to predict weather more accurately.
 
-#NAPRED ZVEZDO
+# NAPRED ZVEZDO
