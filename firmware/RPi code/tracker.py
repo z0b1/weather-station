@@ -6,9 +6,9 @@ import os
 # SET YOUR LOCATION
 # because i'm using a QFH antenna, accuracy here is key 
 # to catch the signal the moment it clears the horizon!
-LATITUDE = 44.8125 # latitude
-LONGITUDE = 20.4612 # longitude
-ELEVATION = 117 # meters above sea level
+LATITUDE = 44.7165 # latitude
+LONGITUDE = 19.6257 # longitude
+ELEVATION = 113 # meters above sea level
 
 # TLE Source
 TLE_URL = "https://celestrak.org/NORAD/elements/weather.txt"

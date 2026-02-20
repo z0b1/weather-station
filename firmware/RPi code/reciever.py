@@ -43,6 +43,7 @@ class WeatherSDR:
             stderr=subprocess.DEVNULL,
             universal_newlines=True
         )
+        os.set_blocking(self.process.stdout.fileno(), False)
 
     def stop_receiver(self):
         if self.process:
@@ -68,14 +69,14 @@ class WeatherSDR:
         output_dir = os.path.join("recordings", f"{sat_name.replace(' ', '_')}_{now_str}")
         os.makedirs(output_dir, exist_ok=True)
 
-        cmd = [
-            "satdump", "live", config["pipeline"], output_dir,
-            "--source", "rtl_sdr",
-            "--samplerate", "1.024e6",
-            "--frequency", str(config["freq"]).replace('M', '000000'),
-            "--gain", "45",
-            "--timeout", "60"
-        ]
+ cmd = [
+    "satdump", "live", "meteor_m2_lrpt", output_dir,
+    "--source", "rtlsdr",
+    "--samplerate", "1024000",
+    "--frequency", "137100000",
+    "--gain", "38",
+    "--timeout", str(int(active_pass['duration']))
+]
 
         print(f"[!] recording {sat_name.upper()}")
         try:
@@ -169,9 +170,12 @@ class WeatherSDR:
                     self.is_satellite_recording = False
                     self.start_receiver()
 
-                # read rtl_433 output
+                # read rtl_433 output (non-blocking)
                 if self.process:
-                    line = self.process.stdout.readline()
+                    try:
+                        line = self.process.stdout.readline()
+                    except (IOError, TypeError):
+                        line = None
                     if line:
                         try:
                             data = json.loads(line)
