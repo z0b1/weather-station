@@ -76,7 +76,7 @@ class WeatherSDR:
             "--samplerate", "1024000",
             "--frequency", config["freq"].replace("M", "000000"),
             "--gain", "38",
-            "--timeout", str(int(sat_info["duration"]))
+            "--timeout", str(int(sat_info.get("duration", 600)))  # Defaults to 600 seconds if missing
         ]
 
         print(f"[!] recording {sat_name.upper()}")
