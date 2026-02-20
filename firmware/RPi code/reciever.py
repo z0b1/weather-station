@@ -205,4 +205,4 @@ class WeatherSDR:
 if __name__ == "__main__":
     receiver = WeatherSDR()
     receiver.run()
-    #NAPRED ZVEZDO ALE
+    #NAPRED ZVEZDO 
