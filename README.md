@@ -46,7 +46,7 @@ Using an Arduino Nano I read the data from the sensors and send it with my UHF t
 # What might be added 
 Using local LLM's to recognize cloud and other patterns to predict weather more accurately.
 
-# pictures
+# Pictures
 ![housing](pics/housing.png)
 ![pcb](pics/pcb.png)
 ![pcb3d](pics/pcb3d.png)
